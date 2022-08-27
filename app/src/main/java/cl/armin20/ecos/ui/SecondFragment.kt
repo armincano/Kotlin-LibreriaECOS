@@ -1,23 +1,29 @@
 package cl.armin20.ecos.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import cl.armin20.ecos.AppECOS
 import cl.armin20.ecos.R
 import cl.armin20.ecos.databinding.FragmentSecondBinding
+import cl.armin20.ecos.ui.viewmodel.BooksBookViewModel
+import cl.armin20.ecos.ui.viewmodel.BooksBookViewModelFactory
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private val booksBookViewModel: BooksBookViewModel by activityViewModels {
+        BooksBookViewModelFactory((activity?.application as AppECOS).repository)
+    }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -33,9 +39,14 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        booksBookViewModel.getBookByIdFromRemoteToLocal()
+
+        booksBookViewModel.currentBook2.observe(viewLifecycleOwner) {
+//            booksBookViewModel.getBookByIdFromRemoteToLocal()
         }
+
+
+
     }
 
     override fun onDestroyView() {

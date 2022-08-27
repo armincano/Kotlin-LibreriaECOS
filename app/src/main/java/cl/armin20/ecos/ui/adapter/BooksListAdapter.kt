@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import cl.armin20.ecos.data.local.entities.BooksListLocal
 import cl.armin20.ecos.databinding.BooksListItemBinding
 import cl.armin20.ecos.utils.fromUrl
-import com.squareup.picasso.Picasso
 
 class BooksListAdapter: RecyclerView.Adapter<BooksListAdapter.BookViewHolder>() {
 

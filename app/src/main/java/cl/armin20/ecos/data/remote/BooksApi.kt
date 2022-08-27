@@ -10,6 +10,6 @@ interface BooksApi {
     @GET("books/")
     suspend fun getBooksList(): Response<List<BooksList>>
 
-    @GET("books_detail/{id}/")
+    @GET("book_detail/{id}/")
     suspend fun getBook(@Path("id") id:Int): Response<Book>
 }

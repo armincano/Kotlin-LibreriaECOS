@@ -62,10 +62,10 @@ class FirstFragment : Fragment() {
             adapter.updateBoardGames(it)
         }
 
-//        adapter.selectItem().observe(viewLifecycleOwner) {
-//            booksBookViewModel.getSelectItem(it)
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, )
-//        }
+        adapter.selectItem().observe(viewLifecycleOwner) {
+            booksBookViewModel.getSelectItem(it)
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, )
+        }
 
     }
 
