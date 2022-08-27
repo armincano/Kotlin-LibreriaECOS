@@ -2,11 +2,9 @@ package cl.armin20.ecos.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import cl.armin20.ecos.data.local.BooksDao
 import cl.armin20.ecos.data.local.entities.BookLocal
 import cl.armin20.ecos.data.local.entities.BooksListLocal
-import cl.armin20.ecos.data.model.Book
 import cl.armin20.ecos.data.model.toBookLocal
 import cl.armin20.ecos.data.remote.EcosBookRetrofitClient
 import kotlinx.coroutines.flow.Flow
@@ -63,7 +61,4 @@ class BooksRepository (private val booksDao: BooksDao) {
         }
 
     }
-
-
-
 }

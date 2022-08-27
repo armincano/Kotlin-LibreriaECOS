@@ -1,18 +1,18 @@
 package cl.armin20.ecos.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import cl.armin20.ecos.AppECOS
-import cl.armin20.ecos.R
 import cl.armin20.ecos.databinding.FragmentSecondBinding
 import cl.armin20.ecos.ui.viewmodel.BooksBookViewModel
 import cl.armin20.ecos.ui.viewmodel.BooksBookViewModelFactory
+import cl.armin20.ecos.utils.fromUrl
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -33,7 +33,6 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,11 +41,30 @@ class SecondFragment : Fragment() {
         booksBookViewModel.getBookByIdFromRemoteToLocal()
 
         booksBookViewModel.currentBook2.observe(viewLifecycleOwner) {
-           binding.textviewSecond.text = it.author
+           binding.tvTitle.text = it.title
+            binding.tvAuthor.text = it.author
+            binding.tvCountry.text = it.country
+            binding.tvPrice.text = it.price.toString()
+            binding.ivBookImageDetail.fromUrl(it.imageLink)
+            binding.btnBuy.setOnClickListener {view ->
+                intentExample(it.title,it.id)
+            }
         }
+    }
 
-
-
+    private fun intentExample(title: String, id:Int) {
+        val destination = arrayOf("ventas@ecosbooks.cl")
+        val subject = "Consulta por libro $title id $id"
+        val body = "Hola\n" +
+                "Vi el libro $title de código $id y me gustaría que me contactaran a este correo o al siguiente número _________\n" +
+                "Quedo atento.”"
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:") // only email apps should handle this
+            putExtra(Intent.EXTRA_EMAIL, destination)
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
