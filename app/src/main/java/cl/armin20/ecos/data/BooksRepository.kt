@@ -6,8 +6,11 @@ import androidx.lifecycle.asLiveData
 import cl.armin20.ecos.data.local.BooksDao
 import cl.armin20.ecos.data.local.entities.BookLocal
 import cl.armin20.ecos.data.local.entities.BooksListLocal
+import cl.armin20.ecos.data.model.Book
+import cl.armin20.ecos.data.model.toBookLocal
 import cl.armin20.ecos.data.remote.EcosBookRetrofitClient
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 class BooksRepository (private val booksDao: BooksDao) {
 
@@ -47,9 +50,11 @@ class BooksRepository (private val booksDao: BooksDao) {
                 if (response.body()==null) {
                     errorMessage.value = "ERROR IS NULL"
                 } else {
-                    booksDao.insertSingleBook(fromBookToLocalEntity(response.body()!!))
+                    val example = response.body()!!.toBookLocal()
+                    Log.d("faith2", "example ${example.toString()}")
+                    booksDao.insertSingleBook(response.body()!!.toBookLocal())
                     Log.d("faith2", "repository getBookFromRemote, title of the book ${response.body()?.title}")
-                    Log.d("faith2", "repository getBookFromDB, title of the country ${getBookByIdFromDB(id).asLiveData().value?.country}")
+                    Log.d("faith2", "repository getBookFromDB, title of the country ${getBookByIdFromDB(id).first().country}")
                 }
             }
             false -> {

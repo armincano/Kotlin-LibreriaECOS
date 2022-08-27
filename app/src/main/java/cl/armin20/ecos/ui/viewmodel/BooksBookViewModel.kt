@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import cl.armin20.ecos.data.BooksRepository
 import cl.armin20.ecos.data.local.entities.BookLocal
 import cl.armin20.ecos.data.local.entities.BooksListLocal
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() {
@@ -31,9 +32,9 @@ class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() 
 
     fun getBookByIdFromRemoteToLocal() = viewModelScope.launch {
         repository.getBookFromRemote(selectedItem.value!!.id)
-        val currentBook: LiveData<BookLocal> = repository.getBookByIdFromDB(1).asLiveData()
-        Log.d("faith2", "currentBook value ${repository.getBookByIdFromDB(1).asLiveData().value?.country}")
-        _currentBook2.postValue(currentBook.value)
+        Log.d("faith3", "currentBook value ${repository.getBookByIdFromDB(selectedItem.value!!.id).first()}")
+        _currentBook2.value = (repository.getBookByIdFromDB(selectedItem.value!!.id).first())
+        Log.d("faith3", "currentBook2 value ${_currentBook2.value}")
     }
 
     fun getSelectItem(item: BooksListLocal) {

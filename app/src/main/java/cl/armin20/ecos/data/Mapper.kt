@@ -20,7 +20,7 @@ fun fromBooksListToLocalEntity(wrapper: List<BooksList>) : List<BooksListLocal> 
     }
 }
 
-fun fromBookToLocalEntity(wrapper: Book) : BookLocal {
+/*fun fromBookToLocalEntity(wrapper: Book) : BookLocal {
     return wrapper.let{
         BookLocal(
             id = it.id,
@@ -37,4 +37,4 @@ fun fromBookToLocalEntity(wrapper: Book) : BookLocal {
             delivery = it.delivery,
         )
     }
-}
+}*/

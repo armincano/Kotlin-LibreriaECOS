@@ -42,7 +42,7 @@ class SecondFragment : Fragment() {
         booksBookViewModel.getBookByIdFromRemoteToLocal()
 
         booksBookViewModel.currentBook2.observe(viewLifecycleOwner) {
-//            booksBookViewModel.getBookByIdFromRemoteToLocal()
+           binding.textviewSecond.text = it.author
         }
 
 
