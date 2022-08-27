@@ -1,5 +1,6 @@
 package cl.armin20.ecos.data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import cl.armin20.ecos.data.local.BooksDao
 import cl.armin20.ecos.data.local.entities.BookLocal
@@ -28,6 +29,7 @@ class BooksRepository (private val booksDao: BooksDao) {
                 if (response.body().isNullOrEmpty()) {
                     errorMessage.value = "ERROR IS NULL OR EMPTY"
                 } else {
+                    Log.d("faith", "repository getBooksListFromRemote, list size ${response.body()?.size}")
                     booksDao.insertAllBooks(fromBooksListToLocalEntity(response.body()!!))
                 }
             }

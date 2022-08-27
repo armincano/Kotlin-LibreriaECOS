@@ -1,4 +1,4 @@
-package cl.armin20.ecos
+package cl.armin20.ecos.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import cl.armin20.ecos.R
 import cl.armin20.ecos.databinding.FragmentSecondBinding
 
 /**
