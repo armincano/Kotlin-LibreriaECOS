@@ -1,8 +1,5 @@
 package cl.armin20.ecos.data.model
 
-
-import cl.armin20.ecos.data.local.entities.BooksListLocal
-
 data class BooksList(
     val id: Int,
     val author: String,

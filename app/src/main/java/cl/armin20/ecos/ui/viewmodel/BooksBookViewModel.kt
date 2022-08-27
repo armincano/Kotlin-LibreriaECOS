@@ -1,7 +1,6 @@
 package cl.armin20.ecos.ui.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.*
 import cl.armin20.ecos.data.BooksRepository
 import cl.armin20.ecos.data.local.entities.BookLocal
@@ -24,7 +23,6 @@ class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() 
     }
 
     val booksFromRepository: LiveData<List<BooksListLocal>> = repository.getAllBooksFromDB().asLiveData()
-
 
     private fun getBooksFromRemoteToLocal() = viewModelScope.launch {
         repository.getBooksListFromRemote()
