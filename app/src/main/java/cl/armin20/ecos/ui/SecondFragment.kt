@@ -1,11 +1,13 @@
 package cl.armin20.ecos.ui
 
+import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import cl.armin20.ecos.AppECOS
@@ -46,13 +48,31 @@ class SecondFragment : Fragment() {
             binding.tvCountry.text = it.country
             binding.tvPrice.text = it.price.toString()
             binding.ivBookImageDetail.fromUrl(it.imageLink)
+            binding.tvDelivery.text = setDeliveryText(it.delivery)
+            binding.tvPages.text = it.pages.toString()
             binding.btnBuy.setOnClickListener {view ->
-                intentExample(it.title,it.id)
+                intentSendEmail(it.title,it.id)
+            }
+            binding.btnWikipedia.setOnClickListener {view ->
+                intentSearchWikipedia(it.link)
             }
         }
     }
 
-    private fun intentExample(title: String, id:Int) {
+    private fun setDeliveryText(delivery: Boolean): String {
+        return if (delivery){
+            "delivery available"
+        } else "delivery no available"
+    }
+
+    private fun intentSearchWikipedia(link: String) {
+        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
+            putExtra(SearchManager.QUERY, link)
+        }
+        startActivity(intent)
+    }
+
+    private fun intentSendEmail(title: String, id:Int) {
         val destination = arrayOf("ventas@ecosbooks.cl")
         val subject = "Consulta por libro $title id $id"
         val body = "Hola\n" +

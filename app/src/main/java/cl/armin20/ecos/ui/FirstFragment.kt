@@ -1,5 +1,6 @@
 package cl.armin20.ecos.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,7 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cl.armin20.ecos.AppECOS
 import cl.armin20.ecos.R
 import cl.armin20.ecos.databinding.FragmentFirstBinding
@@ -49,7 +52,11 @@ class FirstFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val orientationCount: Int
+        val orientation = this.resources.configuration.orientation
+        orientationCount = if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            RecyclerView.VERTICAL } else RecyclerView.HORIZONTAL
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),1,orientationCount,false)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)

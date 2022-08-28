@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import cl.armin20.ecos.data.local.BooksDao
 import cl.armin20.ecos.data.local.entities.BookLocal
 import cl.armin20.ecos.data.local.entities.BooksListLocal
+import cl.armin20.ecos.data.model.fromBooksListToLocalEntity
 import cl.armin20.ecos.data.model.toBookLocal
 import cl.armin20.ecos.data.remote.EcosBookRetrofitClient
 import kotlinx.coroutines.flow.Flow

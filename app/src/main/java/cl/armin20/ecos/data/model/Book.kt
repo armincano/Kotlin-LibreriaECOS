@@ -17,6 +17,7 @@ data class Book(
     val delivery: Boolean
 )
 
+//mapping extension function
 fun Book.toBookLocal() = BookLocal(
     id = id,
     author = author,
