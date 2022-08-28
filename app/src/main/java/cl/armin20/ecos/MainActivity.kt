@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        if (supportActionBar != null) {
+            supportActionBar?.hide();
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -50,10 +50,10 @@ class SecondFragment : Fragment() {
             binding.ivBookImageDetail.fromUrl(it.imageLink)
             binding.tvDelivery.text = setDeliveryText(it.delivery)
             binding.tvPages.text = it.pages.toString()
-            binding.btnBuy.setOnClickListener {view ->
+            binding.btnBuy.setOnClickListener {_ ->
                 intentSendEmail(it.title,it.id)
             }
-            binding.btnWikipedia.setOnClickListener {view ->
+            binding.btnWikipedia.setOnClickListener {_ ->
                 intentSearchWikipedia(it.link)
             }
         }
