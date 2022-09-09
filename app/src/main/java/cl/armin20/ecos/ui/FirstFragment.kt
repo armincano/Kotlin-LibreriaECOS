@@ -71,7 +71,7 @@ class FirstFragment : Fragment() {
 
         adapter.selectItem().observe(viewLifecycleOwner) {
             booksBookViewModel.getSelectItem(it)
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, )
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
     }

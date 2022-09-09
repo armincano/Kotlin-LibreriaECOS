@@ -1,5 +1,6 @@
 package cl.armin20.ecos.data
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cl.armin20.ecos.data.local.BooksDao
 import cl.armin20.ecos.data.model.Book
 import cl.armin20.ecos.data.model.BooksList
@@ -13,14 +14,19 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Ignore
+import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class BooksRepositoryTest {
 
+    @get:Rule
+    val instantTaskRule = InstantTaskExecutorRule()
+
     private lateinit var booksDao: BooksDao
     private lateinit var booksApi: BooksApi
+    // Subject under test
     private lateinit var booksRepository: BooksRepository
     private lateinit var mockWebServer: MockWebServer
 
@@ -39,7 +45,7 @@ class BooksRepositoryTest {
     }
 
     @Test
-    fun `given a list of type BooksList with a two elements when server response is stored then response's body is not null and size is 2 and is successful`() = runBlocking  {
+    fun `when getBooksList() is called and stored, should load data`() = runBlocking  {
 
         //Given
         val json = fakeJSON01ForMockWebServer()
@@ -56,7 +62,7 @@ class BooksRepositoryTest {
     }
 
     @Test
-    fun `given a Book object when it is not null or empty and is successful when server response is stored and depends on specific id then response body is not null is successful is equal to 1 not any number between 2 or 10`()= runBlocking {
+    fun `when getBook(id) is called and stored, should load data with the specific id`()= runBlocking {
 
         //Given
         val json = fakeJSON02ForMockWebServer()
@@ -117,19 +123,5 @@ class BooksRepositoryTest {
         }
     }*/
 
-    /*Mockito
-    @Before
-    fun setUp() {
-        mockWebServer = MockWebServer()
-        service = Retrofit.Builder()
-            .baseUrl(mockWebServer.url(""))
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(BoardApi::class.java)
-
-        boardDao = mock()
-        boardGameRepository = BoardGameRepository(boardDao)
-    }
-    */
 
 }
