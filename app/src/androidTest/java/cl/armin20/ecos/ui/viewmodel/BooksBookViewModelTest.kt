@@ -18,6 +18,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 
 @ExperimentalCoroutinesApi
@@ -39,31 +40,6 @@ class BooksBookViewModelTest {
 
     @After
     fun tearDown() {
-    }
-
-    @Test
-    fun verifyBooksFromRepositoryValueFromRepository() = runBlocking {
-
-        //given
-        every { fakeRepository.getAllBooksFromDB() } returns flow {
-            emit(
-                listOf(
-                    BooksListLocal(1,"Armin","chile","www.fake.com", "spanish","The Fake"),
-                    BooksListLocal(2, "Lolo", "argentina", "www.nofake.arg","spanish","El Maradono")
-                )
-            )
-        }
-
-        //Important to initialize the instance after the fake listOf from above,
-        //because of the "init" requirement from the ViewModel
-        //ELSE "nosuchelementexception expected at least one element"
-        //when
-        booksBookViewModel = BooksBookViewModel(fakeRepository)
-
-        //then
-        booksBookViewModel.booksFromRepository.observeForever {
-            assertThat(it.size).isEqualTo(2)
-        }
     }
 
     @Test
