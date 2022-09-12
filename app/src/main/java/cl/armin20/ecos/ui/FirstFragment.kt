@@ -64,7 +64,7 @@ class FirstFragment : Fragment() {
     }
 
     private fun observeData() {
-        booksBookViewModel.booksFromRepository.observe(viewLifecycleOwner){
+        booksBookViewModel.getAllBooksAndSaveLiveData().observe(viewLifecycleOwner){
             Log.d("faith", "observer data booksFromRepository, list size ${it.size}")
             adapter.updateBoardGames(it)
         }

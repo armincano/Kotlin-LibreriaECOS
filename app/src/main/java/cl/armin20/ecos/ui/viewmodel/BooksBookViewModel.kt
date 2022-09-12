@@ -17,17 +17,13 @@ class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() 
     val currentBook2: LiveData<BookLocal>
     get() = _currentBook2
 
-    private val _booksFromRepository = MutableLiveData<List<BooksListLocal>>()
-    val booksFromRepository: LiveData<List<BooksListLocal>>
-    get() = _booksFromRepository
-
     init {
         getBooksFromRemoteToLocal()
         getAllBooksAndSaveLiveData()
     }
 
-    private fun getAllBooksAndSaveLiveData()=viewModelScope.launch{
-        _booksFromRepository.value = repository.getAllBooksFromDB().first()
+    fun getAllBooksAndSaveLiveData(): LiveData<List<BooksListLocal>> {
+        return repository.getAllBooksFromDB().asLiveData()
     }
 
     private fun getBooksFromRemoteToLocal() = viewModelScope.launch {
