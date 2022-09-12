@@ -72,6 +72,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.8'
@@ -92,6 +93,10 @@ dependencies {
     //mockk
     testImplementation "io.mockk:mockk:1.12.5"
     androidTestImplementation "io.mockk:mockk-android:1.12.5"
+
+    //hamcrest
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
 
     // API testing mock web Server
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"

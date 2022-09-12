@@ -1,6 +1,5 @@
 package cl.armin20.ecos.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import cl.armin20.ecos.data.BooksRepository
 import cl.armin20.ecos.data.local.entities.BookLocal
@@ -18,11 +17,18 @@ class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() 
     val currentBook2: LiveData<BookLocal>
     get() = _currentBook2
 
+    private val _booksFromRepository = MutableLiveData<List<BooksListLocal>>()
+    val booksFromRepository: LiveData<List<BooksListLocal>>
+    get() = _booksFromRepository
+
     init {
         getBooksFromRemoteToLocal()
+        getAllBooksAndSaveLiveData()
     }
 
-    val booksFromRepository: LiveData<List<BooksListLocal>> = repository.getAllBooksFromDB().asLiveData()
+    private fun getAllBooksAndSaveLiveData()=viewModelScope.launch{
+        _booksFromRepository.value = repository.getAllBooksFromDB().first()
+    }
 
     private fun getBooksFromRemoteToLocal() = viewModelScope.launch {
         repository.getBooksListFromRemote()
@@ -30,9 +36,9 @@ class BooksBookViewModel(private val repository: BooksRepository) : ViewModel() 
 
     fun getBookByIdFromRemoteToLocal() = viewModelScope.launch {
         repository.getBookFromRemote(selectedItem.value!!.id)
-        Log.d("faith3", "currentBook value ${repository.getBookByIdFromDB(selectedItem.value!!.id).first()}")
-        _currentBook2.value = (repository.getBookByIdFromDB(selectedItem.value!!.id).first())
-        Log.d("faith3", "currentBook2 value ${_currentBook2.value}")
+//        Log.d("faith3", "currentBook value ${repository.getBookByIdFromDB(selectedItem.value!!.id).first()}")
+        _currentBook2.value = repository.getBookByIdFromDB(selectedItem.value!!.id).first()
+//        Log.d("faith3", "currentBook2 value ${_currentBook2.value}")
     }
 
     fun getSelectItem(item: BooksListLocal) {
